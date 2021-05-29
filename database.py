@@ -2,7 +2,7 @@ import datetime
 import sqlite3
 
 
-CREATE_MOVIES_TABLE = """ CREATE TABLE IF NOT EXISTS movie (
+CREATE_MOVIES_TABLE = """ CREATE TABLE IF NOT EXISTS movies (
     title TEXT,
     release_timestamp REAL,
     watched INTEGER
@@ -24,7 +24,7 @@ def create_table():
 
 def add_movie(title, release_timestamp):
     with connection:
-        connection.exectute(INSERT_MOVIES, (title, release_timestamp))
+        connection.execute(INSERT_MOVIES, (title, release_timestamp))
 
 def get_movies(upcomming=False):
     with connection:
