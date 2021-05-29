@@ -1,4 +1,5 @@
-import database
+import database as db
+
 
 menu = """Please select one of the following options:
 1) Add new movie.
