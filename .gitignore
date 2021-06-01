@@ -133,3 +133,6 @@ dmypy.json
 
 # project database
 data.db
+
+# visual studio code
+.vscode
