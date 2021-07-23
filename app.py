@@ -9,7 +9,8 @@ menu = """Please select one of the following options:
 3) View all movies
 4) Watch a movie
 5) View watched movies.
-6) Exit.
+6) Add user.
+7) Exit.
 
 Your selection: """
 welcome = "Welcome to the watchlist app!"
@@ -28,9 +29,9 @@ def prompt_add_movie():
 def print_movie_list(heading, movies):
     print(f"-- {heading} movies --")
     for movie in movies:
-        movie_date= datetime.datetime.fromtimestamp(movie[1])
+        movie_date= datetime.datetime.fromtimestamp(movie[2])
         human_date= movie_date.strftime("%b %d, %Y")
-        print(f"{movie[0] } (on {human_date})")
+        print(f"{movie[0]}: {movie[1]} (on {human_date})")
     print("--- \n")
 
 def print_watched_movie_list(username, movies):
@@ -40,14 +41,18 @@ def print_watched_movie_list(username, movies):
     print("--- \n")
 
 def prompt_watch_movie():
-    user = input("Who watched the movie?: ")
-    title = input("Enter title of the movie you've watched: ")
-    db.watch_movie(user, title)
+    user = input("Username: ")
+    movie_id = input("Movie ID: ")
+    db.watch_movie(user, movie_id)
+
+def prompt_add_user():
+    username = input("Username: ")
+    db.add_user(username)
 
 
 db.create_table()
 
-while (user_input := input(menu)) != "6":
+while (user_input := input(menu)) != "7":
     if user_input == "1":
         prompt_add_movie()
     elif user_input == "2":
@@ -63,6 +68,6 @@ while (user_input := input(menu)) != "6":
         movies = db.get_watched_movies(username)
         print_watched_movie_list(username, movies)
     elif user_input == "6":
-        sys.exit()
+        prompt_add_user()
     else:
         print("Invalid input, please try again!")
