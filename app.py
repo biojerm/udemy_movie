@@ -29,8 +29,8 @@ def prompt_add_movie():
 def print_movie_list(heading, movies):
     print(f"-- {heading} movies --")
     for movie in movies:
-        movie_date= datetime.datetime.fromtimestamp(movie[2])
-        human_date= movie_date.strftime("%b %d, %Y")
+        movie_date = datetime.datetime.fromtimestamp(movie[2])
+        human_date = movie_date.strftime("%b %d, %Y")
         print(f"{movie[0]}: {movie[1]} (on {human_date})")
     print("--- \n")
 
