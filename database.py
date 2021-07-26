@@ -33,9 +33,10 @@ SELECT_WATCHED_MOVIES = """
     join users on users.username = watched.user_username
     WHERE users.username = ?;"""
 INSERT_WATCHED_MOVIE = (
-    "INSERT INTO watched (user_username, movie_id)" " VALUES (?,?)"
+    "INSERT INTO watched (user_username, movie_id)" " VALUES (?,?);"
 )
 SET_MOVE_WATCHED = "UPDATE movies SET watched = 1 WHERE title = ?;"
+SEARCH_MOVIE = "SELECT * FROM movies where title like ?;"
 
 connection = sqlite3.connect("data.db")
 
@@ -65,6 +66,14 @@ def get_movies(upcomming=False):
             cursor.execute(SELECT_UPCOMING_MOVIES, (time_stamp,))
         else:
             cursor.execute(SELECT_ALL_MOVIES)
+        return cursor.fetchall()
+
+
+def search_movies(search_term):
+
+    with connection:
+        cursor = connection.cursor()
+        cursor.execute(SEARCH_MOVIE, (f"%{search_term}%",))
         return cursor.fetchall()
 
 
