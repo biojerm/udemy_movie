@@ -1,4 +1,3 @@
-
 import datetime
 import os
 import psycopg2
@@ -44,15 +43,14 @@ SET_MOVE_WATCHED = "UPDATE movies SET watched = 1 WHERE title = %s;"
 SEARCH_MOVIE = "SELECT * FROM movies where title like %s;"
 
 connection = psycopg2.connect(os.environ["DATABASE_URL"])
-breakpoint()
+
 
 def create_table():
     with connection:
         with connection.cursor() as cursor:
-          breakpoint()
-          cursor.execute(CREATE_MOVIES_TABLE)
-          cursor.execute(CREATE_USERS_TABLE)
-          cursor.execute(CREATE_WATCHED_TABLE)
+            cursor.execute(CREATE_MOVIES_TABLE)
+            cursor.execute(CREATE_USERS_TABLE)
+            cursor.execute(CREATE_WATCHED_TABLE)
 
 
 def add_user(username):
@@ -67,10 +65,10 @@ def add_movie(title, release_timestamp):
             cursor.execute(INSERT_MOVIES, (title, release_timestamp))
 
 
-def get_movies(upcomming=False):
+def get_movies(upcoming=False):
     with connection:
         with connection.cursor() as cursor:
-            if upcomming:
+            if upcoming:
                 time_stamp = datetime.datetime.today().timestamp()
                 cursor.execute(SELECT_UPCOMING_MOVIES, (time_stamp,))
             else:
